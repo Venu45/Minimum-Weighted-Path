@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+long int findpath(int i,int j,  int a[],long int count,  int w[],int k){
+    long int  flag1=-1; long int flag2=-1;long int flag3=-1;
+   //  printf("%d ",i);
+    if(a[4*i+1]==j||a[4*i+2]==j){
+        count=count+w[i];
+        count=count+w[j];
+        return count;
+        }
+    else if(a[4*i+3]==j){
+        count=count+w[i];
+        count=count+w[j];
+        return count;
+        }
+    else {
+         if(a[4*i+1]==0&&a[4*i+2]==0){
+            if(a[4*i+3]==k){
+           //     printf("%d ",a[4*i+3]);
+                count=-1;
+                return count;
+            }
+        }
+         if(a[4*i+2]==0&&a[4*i+3]==0){
+            if(a[4*i+1]==k){
+                count=-1;
+                return count;
+            }
+        }
+        if(a[4*i+1]==0&&a[4*i+3]==0){
+            if(a[4*i+2]==k){
+                count=-1;
+                return count;
+            }
+        }  
+        if(a[4*i+1]!=0&&a[4*i+1]!=k){
+            int y=a[4*i+1];
+            count=count+w[i];
+            flag1=findpath(y,j,a,count,w,i);
+            count=count-w[i];
+        }
+        if(a[4*i+2]!=0&&a[4*i+2]!=k){
+            int y=a[4*i+2];
+            count=count+w[i];
+            flag2=findpath(y,j,a,count,w,i);
+            count=count-w[i];
+        }
+        if(a[4*i+3]!=0&&a[4*i+3]!=k){
+            int y=a[4*i+3];
+            count=count+w[i];
+            flag3=findpath(y,j,a,count,w,i);
+            count=count-w[i];
+        }
+    }
+    if(flag1!=-1){
+        count=flag1;
+        return count;
+    }
+    if(flag2!=-1){
+        count=flag2;
+        return count;
+    }
+    if(flag3!=-1){
+        count=flag3;
+        return count;
+    }
+    else if(flag1==-1&&flag2==-1) {
+        if(flag3==-1){
+        count=-1;
+        return count;
+        }
+    }
+    
+    
+  return count;  
+}
+
+int main() {
+    int N,X;
+    int p,q,w,i,j,m,r;
+    long int pw=0;long int  temp=0;
+    scanf("%d",&N);
+    scanf("%d",&X);
+      int W[N+2];
+    W[0]=0;W[N+1]=0;
+      int b[4*N+4];
+    for(int z=0;z<4*N+4;z++){
+        b[z]=0;
+    }
+    for(int l=1;l<=N;l++){
+        scanf("%d",&p);
+        scanf("%d",&q);
+        if(q!=0){
+            b[4*l]=l;
+            if(b[4*l+1]==0)b[4*l+1]=p;
+            else if(b[4*l+2]==0)b[4*l+2]=p;
+            else if(b[4*l+3]==0)b[4*l+3]=p;
+            b[4*p]=p;
+            if(b[4*p+2]==0)b[4*p+2]=l;
+            else if(b[4*p+1]==0)b[4*p+1]=l;
+            else if(b[4*p+3]==0)b[4*p+3]=l;
+        }
+        scanf("%d",&w);
+        W[l]=w;
+    }
+    for(i=1;i<N;i++){
+         m=X-W[i];
+        for( r=i+1;r<=N;r++){
+            if(m==W[r]){
+                j=r;break;
+            }
+            else j=0;
+        }
+        if(j==0)continue;
+        else{
+            temp=findpath(i,j,b,0,W,0);
+            if(pw==0)pw=temp;
+            else{
+                if(pw>temp)pw=temp;
+                else continue;
+            }
+        }
+    }
+    if(pw==0){
+        printf("-1");
+    }
+    else printf("%ld",pw);
+    
+    
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */    
+    return 0;
+}
