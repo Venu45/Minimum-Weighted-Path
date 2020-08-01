@@ -1,0 +1,62 @@
+You are given a binary tree containing N nodes and a lucky number x. Each node in the binary tree has some weight associated with it given by the weight array W. Two nodes u and v (u  v) are said to be lucky-pair of nodes if the sum of weights of nodes u and v is equal to lucky number i.e., W(u) + W(v) = x.
+
+ is said to be a path between two nodes  and  if all the nodes  are distinct and there is an edge between  and  for all 1  i  k. Two nodes u, v have a unique path between them in any tree.Weight of the u-v path is defined as the sum of weights of all the vertices on the path from u to v (Look at the sample testcase for clarity)
+
+Find out the value of minimum weighted path among all such weighted paths between lucky-pair of nodes. It is guaranteed that no two nodes have equal weights.
+
+Input Format
+
+First line contains two integers N, x representing the number of nodes in the binary tree and the lucky number respectively.
+
+Each of the next N lines contains 3 space separated integers  i.e., parent of node i, orientation of node i with respect to its parent and weight of node i.
+
+If  = 1, node i is the left child of its parent
+
+If  = 2, node i is the right child of its parent
+
+ = 0 and  = 0 for root node
+
+Hint:  values are not required to solve the problem i.e., the problem can be solved without actually constructing the binary tree although you are free to use any method in your solutions
+
+Constraints
+
+
+ , , if 
+
+1  x  2*
+
+0  c[i]  2
+
+0  p[i]  N
+
+Output Format
+
+Print the value of minimum weighted path among all the weighted paths between lucky-pair of nodes.
+
+If there are no lucky-pairs print -1
+
+Sample Input 0
+
+10 68
+9 2 23
+9 1 25
+2 1 48
+1 1 20
+3 1 13
+2 2 55
+3 2 22
+5 1 46
+0 0 10
+6 1 58
+Sample Output 0
+
+126
+Explanation 0
+
+image
+
+The above graph contains the information (node-index, node-weight) lucky-pair of nodes are (9,10), (3,4) and (5,6), (7,8) since Sum of weights of all these pairs is equal to the lucky number x = 68
+
+image
+
+Hence the Minimum weighted path is the path between the lucky pair of nodes (3,4) with the path weight equal to 126. So the answer is 126.
